@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TOEIC 單字庫</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">TOEIC Vocabulary Database</p>
+        <h1>多益錯誤單字庫</h1>
+        <p class="sub">依文章分組、依原文第一次出現順序排列，支援搜尋與複習篩選。</p>
+      </div>
+      <div class="stats" id="stats"></div>
+    </header>
+
+    <section class="toolbar">
+      <label class="search">
+        <span>搜尋</span>
+        <input id="searchInput" type="search" placeholder="輸入單字、中文、搭配或本文用法…" />
+      </label>
+      <label>
+        <span>文章</span>
+        <select id="articleFilter"><option value="">全部文章</option></select>
+      </label>
+      <label>
+        <span>重要性</span>
+        <select id="importanceFilter">
+          <option value="">全部</option>
+          <option value="S">S｜必背</option>
+          <option value="A">A｜高頻</option>
+          <option value="B">B｜建議</option>
+          <option value="C">C｜認得即可</option>
+        </select>
+      </label>
+      <label>
+        <span>熟悉度</span>
+        <select id="familiarityFilter">
+          <option value="">全部</option>
+          <option value="陌生">陌生</option>
+          <option value="模糊">模糊</option>
+          <option value="熟悉">熟悉</option>
+        </select>
+      </label>
+      <button id="clearFilters" type="button">清除篩選</button>
+    </section>
+
+    <main id="content" class="content">
+      <div class="loading">正在載入 SQLite 單字庫…</div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-wasm.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
