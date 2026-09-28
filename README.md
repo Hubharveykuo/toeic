@@ -1,4 +1,4 @@
-# TOEIC 單字庫
+# 多益單字庫
 
 個人 TOEIC 錯誤單字資料庫與 Web UI。資料以 SQLite 結構管理，網站透過 GitHub Pages 發佈。
 
