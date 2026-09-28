@@ -154,3 +154,17 @@ th:nth-child(9),td:nth-child(9){width:120px;min-width:120px;white-space:nowrap}
   .stats{width:100%}
   .stat{flex:1;min-width:100px}
 }
+
+.quick-filter{
+  background:#fff;
+  color:#111827;
+  border-color:var(--line-strong);
+  white-space:nowrap;
+}
+.quick-filter:hover{background:#f8fafc}
+.quick-filter.active{
+  background:#111827;
+  color:#fff;
+  border-color:#111827;
+  box-shadow:0 0 0 3px rgba(17,24,39,.08);
+}
