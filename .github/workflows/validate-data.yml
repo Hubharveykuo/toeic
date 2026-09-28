@@ -1,0 +1,46 @@
+name: Validate TOEIC data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'schema.sql'
+      - 'data/**'
+      - 'scripts/validate.sql'
+      - '.github/workflows/validate-data.yml'
+  pull_request:
+    paths:
+      - 'schema.sql'
+      - 'data/**'
+      - 'scripts/validate.sql'
+      - '.github/workflows/validate-data.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install SQLite
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sqlite3
+
+      - name: Build database
+        run: |
+          sqlite3 /tmp/toeic.db < data/seed.sql
+
+      - name: SQLite integrity check
+        run: |
+          test "$(sqlite3 /tmp/toeic.db 'PRAGMA integrity_check;')" = "ok"
+
+      - name: Validate vocabulary rules
+        run: |
+          problems="$(sqlite3 -noheader /tmp/toeic.db < scripts/validate.sql)"
+          if [ -n "$problems" ]; then
+            echo "Data validation failed:"
+            echo "$problems"
+            exit 1
+          fi
+          echo "Data validation passed."
