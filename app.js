@@ -1,6 +1,7 @@
 let db;
 let allRows=[];
 let todayOnly=false;
+let todayOnly=false;
 
 const els={
   content:document.getElementById('content'),
@@ -8,6 +9,7 @@ const els={
   article:document.getElementById('articleFilter'),
   importance:document.getElementById('importanceFilter'),
   familiarity:document.getElementById('familiarityFilter'),
+  today:document.getElementById('todayFilter'),
   today:document.getElementById('todayFilter'),
   clear:document.getElementById('clearFilters'),
   stats:document.getElementById('stats')
@@ -46,13 +48,23 @@ function loadRows(){
   render();
 }
 
+function localDateISO(){
+  const d=new Date();
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+
 function filteredRows(){
   const q=els.search.value.trim().toLowerCase();
+  const today=localDateISO();
   const today=localDateISO();
   return allRows.filter(r=>{
     if(els.article.value && r.article_key!==els.article.value) return false;
     if(els.importance.value && r.importance!==els.importance.value) return false;
     if(els.familiarity.value && r.familiarity!==els.familiarity.value) return false;
+    if(todayOnly && r.added_date!==today) return false;
     if(todayOnly && r.added_date!==today) return false;
     if(q){
       const hay=[r.word,r.chinese_meanings,r.part_of_speech,r.collocations,r.article_usage].join(' ').toLowerCase();
@@ -75,6 +87,8 @@ function renderStats(rows){
 
 function render(){
   const rows=filteredRows(); renderStats(rows);
+  els.today.classList.toggle('active',todayOnly);
+  els.today.setAttribute('aria-pressed',String(todayOnly));
   els.today.classList.toggle('active',todayOnly);
   els.today.setAttribute('aria-pressed',String(todayOnly));
 
