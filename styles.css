@@ -323,3 +323,5 @@ th:nth-child(9),td:nth-child(9){width:120px;min-width:120px;white-space:nowrap}
   .match-grid{grid-template-columns:1fr}
   .quiz-card,.match-card,.result-card{padding:18px}
 }
+
+.review-panel[hidden], .content[hidden], .toolbar[hidden]{display:none !important;}
