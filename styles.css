@@ -325,3 +325,9 @@ th:nth-child(9),td:nth-child(9){width:120px;min-width:120px;white-space:nowrap}
 }
 
 .review-panel[hidden], .content[hidden], .toolbar[hidden]{display:none !important;}
+
+.collocations-cell{line-height:1.35}
+.collocation-item{margin-bottom:10px}
+.collocation-item:last-child{margin-bottom:0}
+.collocation-en{font-weight:600;color:#1f2937}
+.collocation-zh{margin-top:2px;color:#6b7280;font-size:13px}
