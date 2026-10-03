@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TOEIC 單字庫</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-  <link rel="stylesheet" href="./styles.css?v=3" />
+  <link rel="stylesheet" href="./styles.css?v=4" />
 </head>
 <body>
   <div class="app-shell">
@@ -53,9 +53,11 @@
     <main id="content" class="content">
       <div class="loading">正在載入 SQLite 單字庫…</div>
     </main>
+
+    <section id="reviewPanel" class="review-panel" hidden aria-live="polite"></section>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-wasm.js"></script>
-  <script src="./app.js?v=3"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>
