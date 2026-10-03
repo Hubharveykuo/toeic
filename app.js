@@ -168,7 +168,9 @@ function openReview(article){
   els.content.hidden=true;
   document.querySelector('.toolbar').hidden=true;
   renderModePicker();
-  window.scrollTo({top:0,behavior:'smooth'});
+  requestAnimationFrame(()=>{
+    els.review.scrollIntoView({behavior:'smooth',block:'start'});
+  });
 }
 
 function closeReview(){
@@ -177,6 +179,9 @@ function closeReview(){
   els.content.hidden=false;
   document.querySelector('.toolbar').hidden=false;
   render();
+  requestAnimationFrame(()=>{
+    els.content.scrollIntoView({behavior:'smooth',block:'start'});
+  });
 }
 
 function reviewHeader(extra=''){
