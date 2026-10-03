@@ -292,9 +292,10 @@ function renderQuizQuestion(){
       if(!ok) btn.classList.add('wrong');
 
       const feedback=document.getElementById('quizFeedback');
+      const usage=current.article_usage ? `<div class="feedback-usage"><strong>本文用法：</strong>${esc(current.article_usage)}</div>` : '';
       feedback.innerHTML=ok
-        ? `<strong>答對了</strong>　${esc(current.word)} = ${esc(current.chinese_meanings)}`
-        : `<strong>答錯了</strong>　正確答案：${esc(current.word)} = ${esc(current.chinese_meanings)}`;
+        ? `<div><strong>答對了</strong>　${esc(current.word)} = ${esc(current.chinese_meanings)}</div>${usage}`
+        : `<div><strong>答錯了</strong>　正確答案：${esc(current.word)} = ${esc(current.chinese_meanings)}</div>${usage}`;
 
       const next=document.createElement('button');
       next.type='button';
