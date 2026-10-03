@@ -185,6 +185,9 @@ function closeReview(){
 }
 
 function reviewHeader(extra=''){
+  const modeButton=reviewState?.mode
+    ? '<button id="backToModes" class="secondary-btn" type="button">選擇模式</button>'
+    : '';
   return `
     <div class="review-topbar">
       <div>
@@ -192,12 +195,19 @@ function reviewHeader(extra=''){
         <h2>${esc(reviewState.article)}</h2>
         ${extra}
       </div>
-      <button id="exitReview" class="secondary-btn" type="button">返回單字庫</button>
+      <div class="review-actions">
+        ${modeButton}
+        <button id="exitReview" class="secondary-btn" type="button">返回單字庫</button>
+      </div>
     </div>`;
 }
 
 function bindExit(){
   document.getElementById('exitReview')?.addEventListener('click',closeReview);
+  document.getElementById('backToModes')?.addEventListener('click',()=>{
+    reviewState.mode=null;
+    renderModePicker();
+  });
 }
 
 function renderModePicker(){
@@ -225,7 +235,7 @@ function renderModePicker(){
 
 function startMode(mode,sourceWords=null){
   reviewState.mode=mode;
-  reviewState.sourceWords=sourceWords ? [...sourceWords] : [...reviewState.words];
+  reviewState.sourceWords=shuffle(sourceWords ? sourceWords : reviewState.words);
   reviewState.index=0;
   reviewState.correct=0;
   reviewState.wrong=[];
