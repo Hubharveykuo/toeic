@@ -30,6 +30,15 @@ function esc(v=''){
   }[m]));
 }
 
+function formatCollocations(v=''){
+  const items=String(v||'').split('；').map(s=>s.trim()).filter(Boolean);
+  return items.map(item=>{
+    const m=item.match(/^(.*?)（(.*)）$/);
+    if(!m) return '<div class="collocation-item">'+esc(item)+'</div>';
+    return '<div class="collocation-item"><div class="collocation-en">'+esc(m[1].trim())+'</div><div class="collocation-zh">'+esc(m[2].trim())+'</div></div>';
+  }).join('');
+}
+
 function localDateISO(){
   const d=new Date();
   const y=d.getFullYear();
@@ -142,7 +151,7 @@ function render(){
                 <td class="word">${esc(r.word)}</td>
                 <td>${esc(r.chinese_meanings)}</td>
                 <td>${esc(r.part_of_speech)}</td>
-                <td>${esc(r.collocations)}</td>
+                <td class="collocations-cell">${formatCollocations(r.collocations)}</td>
                 <td>${esc(r.article_usage)}</td>
                 <td><span class="tag ${esc(r.importance)}">${esc(r.importance)}</span></td>
                 <td><span class="tag fam">${esc(r.familiarity)}</span></td>
