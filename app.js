@@ -265,8 +265,20 @@ function renderQuizQuestion(){
 
   const current=words[reviewState.index];
   const reverse=reviewState.mode==='reverse';
-  const pool=reviewState.words.filter(w=>w.word!==current.word);
-  const distractors=shuffle(pool).slice(0,3);
+
+  const currentLabel=reverse ? current.word : primaryMeaning(current);
+  const seen=new Set([currentLabel]);
+  const distractors=[];
+
+  for(const candidate of shuffle(reviewState.words)){
+    if(candidate.word===current.word) continue;
+    const label=reverse ? candidate.word : primaryMeaning(candidate);
+    if(seen.has(label)) continue;
+    seen.add(label);
+    distractors.push(candidate);
+    if(distractors.length===3) break;
+  }
+
   const answers=shuffle([current,...distractors]);
 
   els.review.innerHTML=`
